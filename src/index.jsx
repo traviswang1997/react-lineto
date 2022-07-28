@@ -145,6 +145,9 @@ export default class LineTo extends Component {
 
         let offsetX = window.pageXOffset;
         let offsetY = window.pageYOffset;
+        if (this.props.orientation) {
+            console.log(box0.left, box0.width)
+        }
 
         if (within) {
             const p = this.findElement(within);
@@ -154,10 +157,10 @@ export default class LineTo extends Component {
             offsetY -= boxp.top + (window.pageYOffset || document.documentElement.scrollTop) - p.scrollTop;
         }
 
-        const x0 = box0.left + box0.width * anchor0.x + offsetX;
-        const x1 = box1.left + box1.width * anchor1.x + offsetX;
-        const y0 = box0.top + box0.height * anchor0.y + offsetY;
-        const y1 = box1.top + box1.height * anchor1.y + offsetY;
+        const x0 = (box0.left + box0.width * anchor0.x + offsetX) * 1.1;
+        const x1 = (box1.left + box1.width * anchor1.x + offsetX) * 1.1;
+        const y0 = (box0.top + box0.height * anchor0.y + offsetY) * 1.1;
+        const y1 = (box1.top + box1.height * anchor1.y + offsetY) * 1.1;
 
         return { x0, y0, x1, y1 };
     }
@@ -217,9 +220,9 @@ export class Line extends PureComponent {
 
         const positionStyle = {
             position: 'absolute',
-            top: `${y0}px`,
-            left: `${x0}px`,
-            width: `${length}px`,
+            top: `${y0 * 1.1}px`,
+            left: `${x0 * 1.1}px`,
+            width: `${length * 1.1}px`,
             zIndex: Number.isFinite(this.props.zIndex)
                       ? String(this.props.zIndex)
                       : '1',
